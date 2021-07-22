@@ -1,0 +1,46 @@
+{
+  "userInfo": [
+    {
+      "id": 1,
+      "name": "张艺波",
+      "age": 23
+    },
+    {
+      "id": 3,
+      "name": "毛子洋",
+      "age": 23
+    },
+    {
+      "name": "高浩哲",
+      "age": 24,
+      "id": 4
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "axios学习",
+      "author": "张艺波"
+    },
+    {
+      "title": "json-server",
+      "author": "typicode",
+      "id": 6
+    },
+    {
+      "title": "json-server",
+      "author": "typicode",
+      "id": 7
+    },
+    {
+      "title": "json-server",
+      "author": "typicode",
+      "id": 8
+    }
+  ]
+}
