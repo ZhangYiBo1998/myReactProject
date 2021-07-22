@@ -1,3 +1,7 @@
+import {
+    JSON_SERVER_HOST
+} from "./Global/index"
+
 const proxy = require('http-proxy-middleware')
 
 module.exports = function (app) {
@@ -9,11 +13,11 @@ module.exports = function (app) {
                 '^/proxy8090': '' //重写请求路径
             }
         }),
-        proxy('/proxy53000', {
-            target: 'http://localhost:53000',
+        proxy(`/proxy${JSON_SERVER_HOST}`, {
+            target: `http://${JSON_SERVER_HOST}`,
             changeOrigin: true,
             pathRewrite: {
-                '^/proxy53000': ''
+                [`^/proxy${JSON_SERVER_HOST}`]: ''
             }
         })
     )
