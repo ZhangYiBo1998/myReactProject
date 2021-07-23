@@ -27,6 +27,10 @@ export default function LoginPage() {
         console.log('Failed:', errorInfo);
     };
 
+    const register = () => {
+        console.log("去注册");
+    }
+
 
     return (
         <div className="loginPage">
@@ -35,10 +39,13 @@ export default function LoginPage() {
                     <div className='image-box'>
                         <span className='title'>WelCome!!!</span>
                     </div>
+
+                    {/* 使用antd的表单组件 */}
                     <div>
                         <Form
                             name="basic"
                             labelCol={{ span: 8 }}
+                            labelAlign='left'
                             wrapperCol={{ span: 16 }}
                             initialValues={{ remember: true }}
                             onFinish={onFinish}
@@ -46,14 +53,20 @@ export default function LoginPage() {
                             <Form.Item
                                 label="用户名"
                                 name="userName"
-                                rules={[{ required: true, message: '用户名不能为空!' }]}>
+                                rules={[
+                                    { required: true, message: '用户名不能为空!' },
+                                    // { type: 'string', min: 6, message: '用户名位数不低于6位!' },
+                                ]}>
                                 <Input />
                             </Form.Item>
 
                             <Form.Item
                                 label="密码"
                                 name="password"
-                                rules={[{ required: true, message: '密码不能为空!' }]}>
+                                rules={[
+                                    { required: true, message: '密码不能为空!' },
+                                    { type: 'string', min: 6, message: '密码位数不低于6位!' },
+                                ]}>
                                 <Input.Password />
                             </Form.Item>
 
@@ -65,9 +78,9 @@ export default function LoginPage() {
                                 <Button type="primary" htmlType="submit">
                                     登录
                                 </Button>
-                                {/* <Button htmlType="submit">
-                                    注册
-                                </Button> */}
+                                <Button type="link" htmlType="button" onClick={register}>
+                                    去注册
+                                </Button>
                             </Form.Item>
                         </Form>
                     </div>
