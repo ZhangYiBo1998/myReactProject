@@ -1,1 +1,0 @@
-export const JSON_SERVER_HOST = "localhost:53000";

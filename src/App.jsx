@@ -1,9 +1,11 @@
-import Home from "./components/Home";
+import 'antd/dist/antd.css';
+import './App.css';
+import LoginPage from './components/LoginPage';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <LoginPage />
     </div>
   );
 }

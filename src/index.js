@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+//<React.StrictMode></React.StrictMode>开启严格模式
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <
+  App / >
+  // </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 
