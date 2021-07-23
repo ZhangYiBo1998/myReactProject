@@ -1,21 +1,11 @@
 .loginPage {
     padding: 0;
     margin: 0;
-}
-
-
-.loginPage .background {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
-}
-
-.loginPage .bg-image {
-    background: url(./img/nekos.jpg) no-repeat;
-    background-size: 100% auto;
 }
 
 .loginPage .login-box {

@@ -1,4 +1,12 @@
 {
+  "user": [
+    {
+      "id": 1,
+      "userName": "admin",
+      "password": "111111",
+      "power": "root"
+    }
+  ],
   "userInfo": [
     {
       "id": 1,
