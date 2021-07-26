@@ -2,6 +2,7 @@ import Game from '../components/Game';
 import Gobang from '../components/Game/Gobang';
 import HomePage from '../pages/Home';
 import LoginPage from '../pages/Login';
+// import { lazy } from 'react';
 
 //定义导航路由
 export const navRouterArr = [{

@@ -21,7 +21,8 @@ export default function Navigation() {
                     return (
                         <div key={obj.path} className="itemBox" >
                             <NavLink activeClassName="active" className="item" to={obj.path}>{obj.name}</NavLink>
-                            {
+                            {/* 二级菜单暂时没什么好想法 */}
+                            {/* {
                                 (obj.secondaryRouting && obj.secondaryRouting.length > 0) ?
                                     (
                                         obj.secondaryRouting.map((secondary) => {
@@ -29,7 +30,7 @@ export default function Navigation() {
                                         })
                                     )
                                     : null
-                            }
+                            } */}
                         </div>
                     )
 

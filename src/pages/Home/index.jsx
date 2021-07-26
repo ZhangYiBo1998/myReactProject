@@ -16,9 +16,7 @@ export default function Home() {
                         {/* exact属性开启严格匹配，但尽量不用 */}
                         {
                             navRouterArr.map((obj) => {
-                                return (
-                                    <Route key={obj.path} path={obj.path} component={obj.component} />
-                                )
+                                return (<Route key={obj.path} path={obj.path} component={obj.component} />)
                             })
                         }
                         {/* Redirect表示重定向，当都没有匹配上的时候，根据Redirect显示对应组件 */}
