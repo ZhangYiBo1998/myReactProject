@@ -37,7 +37,7 @@ export default function Login(props) {
                         ]);
 
                         // props.history.push('/home');
-                        //让用户登录后无法返回登录页
+                        //跳转主页/home路由，replace()让用户登录后无法返回登录页
                         props.history.replace('/home');
                         message.success('登录成功');
                     } else {
@@ -50,6 +50,7 @@ export default function Login(props) {
                         message.error('注册失败，用户已存在');
                         return false;
                     } else {
+                        // 链式调用axios，避免回调地狱
                         return axios({
                             method: "post",
                             url: `/${proxy53000}/user`,
