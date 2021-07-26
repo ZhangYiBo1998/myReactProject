@@ -1,6 +1,7 @@
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { saveCookie } from '../../Global';
 import { proxy53000 } from '../../Global/proxy_variable';
 import './index.css';
 
@@ -27,6 +28,14 @@ export default function Login(props) {
                 if (state.isLogin) {
                     // 登录
                     if (data.userName === values.userName && data.password === values.password) {
+                        // 储存cookie，以便检测是否登录
+                        saveCookie([
+                            {
+                                objKey: "userName",
+                                objValue: values
+                            },
+                        ]);
+
                         // props.history.push('/home');
                         //让用户登录后无法返回登录页
                         props.history.replace('/home');
@@ -73,6 +82,7 @@ export default function Login(props) {
     };
 
     const changeLoginStatus = (e) => {
+        //更改页面状态为登录页面还是注册页面
         setState({ ...state, ...{ isLogin: !state.isLogin } });
     }
 
