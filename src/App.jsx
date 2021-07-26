@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import { BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
@@ -10,8 +10,8 @@ function App() {
       <div className="App bg-image bg-skyblue">
         {/* <LoginPage /> */}
         {/* <div style={{ display: "none" }}> */}
-        <NavLink className="list-group-item" to="/about">About</NavLink>
-        <NavLink className="list-group-item" to="/home">Home</NavLink>
+        {/* <NavLink className="list-group-item" to="/about">About</NavLink>
+        <NavLink className="list-group-item" to="/home">Home</NavLink> */}
         {/* </div> */}
 
         {/* 注册路由 */}

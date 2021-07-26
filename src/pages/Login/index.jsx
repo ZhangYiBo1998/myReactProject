@@ -4,49 +4,76 @@ import React, { useState } from 'react';
 import { proxy53000 } from '../../Global/proxy_variable';
 import './index.css';
 
-export default function Login() {
-    const [state, setstate] = useState({
-        userName: '',
-        password: '',
-        remember: !1,
-        showTips: !1,
+export default function Login(props) {
+    const [state, setState] = useState({
+        isLogin: !0,
     })
 
     const onFinish = (values) => {
-        console.log('Success:', values);
         //Object.assign合并对象函数的第一个参数是合并后的对象
         //setState()的参数必须是不同的对象，才能更新状态
         // const obj = {};
         // Object.assign(obj, state, values)
-        // setstate(obj);
+        // setState(obj);
+        // 简写方式：
+        // setState({...state,...values})
 
-        //在对象上使用扩展运算符，相当于对象合并
         axios({
             method: "GET",
-            url: `/${proxy53000}/user`
+            url: `/${proxy53000}/user?userName=${values.userName}`,
         }).then(
             res => {
-                const data = res.data[0];
-
-                if (data.userName === values.userName && data.password === values.password) {
-                    setstate({ ...state, ...values, showTips: !0 });
-                    message.success('登录成功');
+                const data = res.data[0] || {};
+                if (state.isLogin) {
+                    // 登录
+                    if (data.userName === values.userName && data.password === values.password) {
+                        // props.history.push('/home');
+                        //让用户登录后无法返回登录页
+                        props.history.replace('/home');
+                        message.success('登录成功');
+                    } else {
+                        message.error('登录失败');
+                    }
+                    return false;
                 } else {
-                    message.error('登录失败');
+                    //注册
+                    if (data.userName) {
+                        message.error('注册失败，用户已存在');
+                        return false;
+                    } else {
+                        return axios({
+                            method: "post",
+                            url: `/${proxy53000}/user`,
+                            data: {
+                                userName: values.userName,
+                                password: values.password,
+                                power: "normal"
+                            }
+                        })
+                    }
                 }
-            },
-            error => {
-                console.log(error);
             }
-        )
+        ).then(
+            res => {
+                if (!res) {
+                    // 如果返回false，则不执行后续代码
+                    return;
+                }
+                setState({ ...state, isLogin: !0 });
+                message.success('注册成功');
+            }
+        ).catch(error => {
+            console.log("错误信息：\n", error);
+        })
+
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    const register = (e) => {
-        console.log("去注册");
+    const changeLoginStatus = (e) => {
+        setState({ ...state, ...{ isLogin: !state.isLogin } });
     }
 
     return (
@@ -91,11 +118,11 @@ export default function Login() {
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                            <Button type="primary" htmlType="submit">
-                                登录
+                            <Button type={state.isLogin ? "primary" : ""} htmlType="submit">
+                                {state.isLogin ? '登录' : '注册'}
                             </Button>
-                            <Button type="link" htmlType="button" onClick={register}>
-                                去注册
+                            <Button type="link" htmlType="button" onClick={changeLoginStatus}>
+                                {state.isLogin ? '去注册' : '去登录'}
                             </Button>
                         </Form.Item>
                     </Form>
