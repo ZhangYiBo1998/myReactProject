@@ -23,9 +23,9 @@ export default function Navigation() {
                             <NavLink activeClassName="active" className="item" to={obj.path}>{obj.name}</NavLink>
                             {/* 二级菜单暂时没什么好想法 */}
                             {/* {
-                                (obj.secondaryRouting && obj.secondaryRouting.length > 0) ?
+                                (obj.childen && obj.childen.length > 0) ?
                                     (
-                                        obj.secondaryRouting.map((secondary) => {
+                                        obj.childen.map((secondary) => {
                                             return <NavLink key={secondary.path} activeClassName="active" className="item item-secondaryRouting" to={secondary.path}>{secondary.name}</NavLink>
                                         })
                                     )
