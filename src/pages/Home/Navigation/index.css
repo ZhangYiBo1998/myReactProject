@@ -1,0 +1,45 @@
+.Navigation {
+    margin: 0;
+    padding: 0 10px;
+    width: 120px;
+    min-height: 95vh;
+    background-color: #282c34;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.Navigation .head {
+    padding-bottom: 10px;
+    border-bottom: #fff solid 1px;
+}
+
+.Navigation .itemBox {
+    border-bottom: #fff solid 1px;
+}
+
+.Navigation .itemBox:hover {
+    background-color: #70757e;
+    cursor: pointer;
+}
+
+.Navigation .itemBox .item {
+    height: 2.5em;
+    width: 100%;
+    color: #fff;
+    font-size: 1.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Navigation .itemBox .active {
+    background-color: #70757e;
+    color: #61dafb;
+}
+
+.Navigation .itemBox .item-secondarRouting {
+    width: auto;
+    margin-left: 10px;
+    font-size: 1em;
+}

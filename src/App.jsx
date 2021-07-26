@@ -12,7 +12,6 @@ import { pageRouterArr } from './routes/routes';
 function App() {
   const [state] = useState({
     isLogin: !!getCookie('userName'),
-    pageRouters: pageRouterArr,
   })
 
   return (
@@ -23,9 +22,9 @@ function App() {
           {/* Switch可以让注册的路由只匹配一次 */}
           {/* exact属性开启严格匹配，但尽量不用 */}
           {
-            state.pageRouters.map((obj) => {
+            pageRouterArr.map((obj) => {
               return (
-                <Route key={obj.path} {...obj} />
+                <Route key={obj.path} path={obj.path} component={obj.component} />
               )
             })
           }

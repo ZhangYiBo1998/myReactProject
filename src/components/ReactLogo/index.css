@@ -1,31 +1,26 @@
-.WelcomeReact {
+.ReactLogo {
     text-align: center;
 }
 
-.WelcomeReact .App-logo {
-    height: 40vmin;
+.ReactLogo .App-logo {
+    height: 15vmin;
     pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .WelcomeReact .App-logo {
+    .ReactLogo .App-logo {
         animation: App-logo-spin infinite 20s linear;
     }
 }
 
-.WelcomeReact .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
+.ReactLogo .App-header {
+    /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-}
-
-.WelcomeReact .App-link {
-    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
