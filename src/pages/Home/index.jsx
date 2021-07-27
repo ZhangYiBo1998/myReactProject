@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import UserHead from '../../components/UserHead';
 import { navRouterArr } from '../../routes/routes';
 import './index.css';
 import Navigation from './Navigation';
@@ -7,6 +8,7 @@ import Navigation from './Navigation';
 export default function Home() {
     return (
         <div className='homePage'>
+            <UserHead />
             <div className="page-box">
                 <Navigation />
                 <div className='page-body'>

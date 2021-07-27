@@ -4,35 +4,40 @@ import {
 import HomePage from '../pages/Home';
 import LoginPage from '../pages/Login';
 
-//定义导航路由
+//定义导航路由,最多不要超过3级，否则样式会出错
+//name:路由名字
+//icon:路由图标
+//path:路由路径
+//component:路由跳转的组件
+//childen:次级路由
+//showChilden:是否默认加载次级路由，设置为true时加载
 export const navRouterArr = [{
     name: '首页',
     icon: '',
     path: '/home/index',
-    component: lazy(() => import('../components/Game/Gobang')), //路由懒加载
+    component: lazy(() => import('../pages/Home/Initialization')), //路由懒加载
 }, {
     name: '游戏',
     icon: '',
     path: '/home/game',
-    component: lazy(() => import('../components/Game')),
+    component: lazy(() => import('../pages/Home/Game')),
     childen: [{
         name: '五子棋',
         icon: '',
         path: '/home/game/gobang',
-        component: lazy(() => import('../components/Game/Gobang')),
+        component: lazy(() => import('../pages/Home/Game/Gobang')),
     }, ],
-    displayChilden: true, //第一次进页面默认展示次级路由
+    showChilden: true,
 }, {
     name: 'SVG练习',
     icon: '',
     path: '/home/form',
-    component: lazy(() => import('../components/Game/Gobang')),
-    childen: [{
-        name: '五子棋',
-        icon: '',
-        path: '/home/game/gobang',
-        component: lazy(() => import('../components/Game/Gobang')),
-    }, ],
+    component: lazy(() => import('../pages/Home/SVGStudy')),
+}, {
+    name: '关于我',
+    icon: '',
+    path: '/home/about',
+    component: lazy(() => import('../pages/Home/About')), //路由懒加载
 }, ]
 
 

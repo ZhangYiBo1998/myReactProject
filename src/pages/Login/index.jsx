@@ -29,7 +29,7 @@ export default function Login(props) {
                     // 登录
                     if (data.userName === values.userName && data.password === values.password) {
                         // 储存cookie，以便检测是否登录
-                        saveCookie([
+                        values.remember && saveCookie([
                             {
                                 objKey: "userName",
                                 objValue: values

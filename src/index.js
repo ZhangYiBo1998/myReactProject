@@ -7,8 +7,7 @@ import reportWebVitals from './reportWebVitals';
 //<React.StrictMode></React.StrictMode>开启严格模式
 ReactDOM.render(
   // <React.StrictMode>
-  <
-  App / >
+  <App / >
   // </React.StrictMode>
   ,
   document.getElementById('root')
