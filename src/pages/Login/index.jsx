@@ -31,8 +31,10 @@ export default function Login(props) {
                         // 储存cookie，以便检测是否登录
                         values.remember && saveCookie([
                             {
-                                objKey: "userName",
-                                objValue: values
+                                objKey: "userInfo",
+                                objValue: {
+                                    userName: values.userName
+                                }
                             },
                         ]);
 

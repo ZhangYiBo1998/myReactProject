@@ -11,7 +11,7 @@ import { pageRouterArr } from './routes/routes';
 
 function App() {
   const [state] = useState({
-    isLogin: !!getCookie('userName'),
+    isLogin: !!getCookie('userInfo'),
   })
 
   return (

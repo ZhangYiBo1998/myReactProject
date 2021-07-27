@@ -5,7 +5,7 @@ import { navRouterArr } from '../../routes/routes';
 import './index.css';
 import Navigation from './Navigation';
 
-export default function Home() {
+export default function Home(props) {
     return (
         <div className='homePage'>
             <UserHead />
