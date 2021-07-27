@@ -1,8 +1,8 @@
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { saveCookie } from '../../Global';
-import { proxy53000 } from '../../Global/proxy_variable';
+import { saveCookie } from '../../utils';
+import { proxy53000 } from '../../utils/proxy_variable';
 import './index.css';
 
 export default function Login(props) {

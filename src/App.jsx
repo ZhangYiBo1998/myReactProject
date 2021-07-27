@@ -5,10 +5,10 @@ import React, { Suspense, useState } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Loading from './components/Loading';
-// 引入全局文件Global/index.js
-import { getCookie } from './Global';
 // 引入路由文件routes.js，是为了能实现页面间无刷新跳转
 import { pageRouterArr } from './routes/routes';
+// 引入全局文件Global/index.js
+import { getCookie } from './utils';
 
 function App() {
   const [state] = useState({

@@ -2,7 +2,7 @@ import { LogoutOutlined, MoreOutlined, SettingOutlined, UserOutlined } from '@an
 import { Avatar, Dropdown, Menu } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom'; //使普通组件也能使用路由组件的参数
-import { getCookie } from '../../Global';
+import { getCookie } from '../../utils';
 import ReactLogo from '../ReactLogo';
 import './index.css';
 
@@ -13,15 +13,19 @@ function UserHead(props) {
 
     function handleMenuClick(e) {
         // console.log('click', e);
-        if (e.key === "1") {
+        if (e.key === "userCenter") {
             props.history.push('/userCenter');
             return;
         }
-        if (e.key === "2") {
+        if (e.key === "settingCenter") {
             props.history.push('/settingCenter');
             return;
         }
-        if (e.key === "3") {
+        if (e.key === "Github") {
+            console.log('前往github主页');
+            return;
+        }
+        if (e.key === "signOut") {
             props.history.push('/login');
             return;
         }
@@ -29,13 +33,16 @@ function UserHead(props) {
 
     const menu = (
         <Menu onClick={handleMenuClick}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
+            <Menu.Item key="userCenter" icon={<UserOutlined />}>
                 个人中心
             </Menu.Item>
-            <Menu.Item key="2" icon={<SettingOutlined />}>
+            <Menu.Item key="settingCenter" icon={<SettingOutlined />}>
                 设置
             </Menu.Item>
-            <Menu.Item key="3" icon={<LogoutOutlined />}>
+            <Menu.Item key="Github" icon={<SettingOutlined />}>
+                Github
+            </Menu.Item>
+            <Menu.Item key="signOut" icon={<LogoutOutlined />}>
                 退出
             </Menu.Item>
         </Menu>
