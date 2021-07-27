@@ -51,7 +51,8 @@ export default function Navigation() {
     return (
         <div className='Navigation'>
             <div className='head'>
-                <ReactLogo />
+                {/* animation关键字让icon旋转 */}
+                <ReactLogo animation />
             </div>
             {routingMenu(state.navRouterArr)}
         </div>

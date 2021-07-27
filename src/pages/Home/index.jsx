@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Loading from '../../components/Loading';
 import UserHead from '../../components/UserHead';
 import { navRouterArr } from '../../routes/routes';
 import './index.css';
@@ -12,7 +13,7 @@ export default function Home(props) {
             <div className="page-box">
                 <Navigation />
                 <div className='page-body'>
-                    <Suspense fallback={<div>loading...</div>}>
+                    <Suspense fallback={<Loading fullContainer />}>
                         {/* 注册路由 */}
                         <Switch>
                             {/* Switch可以让注册的路由只匹配一次 */}

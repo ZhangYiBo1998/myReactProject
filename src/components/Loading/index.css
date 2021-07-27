@@ -1,0 +1,21 @@
+.LoadingBox {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoadingBox.fullScreen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(197, 197, 197, 0.5);
+}
+
+.LoadingBox.fullContainer {
+    width: 100%;
+    height: 100%;
+}

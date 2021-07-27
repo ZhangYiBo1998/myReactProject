@@ -1,5 +1,5 @@
 import { LogoutOutlined, MoreOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, message } from 'antd';
+import { Avatar, Dropdown, Menu } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom'; //使普通组件也能使用路由组件的参数
 import { getCookie } from '../../Global';
@@ -7,19 +7,18 @@ import ReactLogo from '../ReactLogo';
 import './index.css';
 
 function UserHead(props) {
-    const [state, setstate] = useState({
+    const [state] = useState({
         userName: getCookie('userInfo').userName,
     })
 
     function handleMenuClick(e) {
         // console.log('click', e);
         if (e.key === "1") {
-            message.info('个人中心');
             props.history.push('/userCenter');
             return;
         }
         if (e.key === "2") {
-            message.info('设置');
+            props.history.push('/settingCenter');
             return;
         }
         if (e.key === "3") {
@@ -50,7 +49,8 @@ function UserHead(props) {
             <div className='right'>
                 <div className='userInfo'>
                     <div className='imgBox'>
-                        <img src="/" alt="头像" />
+                        {/* <img src="/" alt="头像" /> */}
+                        <Avatar size={50} icon={<UserOutlined />} />
                     </div>
                     <div className='userName'>
                         <Dropdown.Button overlay={menu} placement="bottomCenter" icon={<MoreOutlined className='more' />}>

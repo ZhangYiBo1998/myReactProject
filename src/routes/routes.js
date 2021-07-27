@@ -3,7 +3,6 @@ import {
 } from 'react';
 import HomePage from '../pages/Home';
 import LoginPage from '../pages/Login';
-import UserCenter from '../pages/UserCenter';
 
 //定义导航路由,最多不要超过3级，否则样式会出错
 //name:路由名字
@@ -67,5 +66,9 @@ export const pageRouterArr = [{
 }, {
     name: '个人中心',
     path: '/userCenter',
-    component: UserCenter,
+    component: lazy(() => import('../pages/UserCenter')),
+}, {
+    name: '设置中心',
+    path: '/settingCenter',
+    component: lazy(() => import('../pages/SettingCenter')),
 }, ]

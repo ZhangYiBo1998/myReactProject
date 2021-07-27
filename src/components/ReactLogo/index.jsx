@@ -5,7 +5,7 @@ function ReactLogo(props) {
     return (
         <div className="ReactLogo">
             <header className="App-header">
-                <img src={logo} className={`App-logo ${props.size}`} alt="logo" />
+                <img src={logo} className={`App-logo ${props.size} ${props.animation && "animation"}`} alt="logo" />
             </header>
         </div>
     );

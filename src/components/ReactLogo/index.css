@@ -13,7 +13,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .ReactLogo .App-logo {
+
+    /* .ReactLogo .App-logo { */
+    .ReactLogo .animation {
         animation: App-logo-spin infinite 20s linear;
     }
 }
