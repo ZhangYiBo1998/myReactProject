@@ -3,9 +3,10 @@ import React from 'react';
 import './index.css';
 
 export default function Loading(props) {
+    const { fullScreen, fullContainer, size = 'large' } = props;
     return (
-        <div className={`LoadingBox ${props.fullScreen && "fullScreen"} ${props.fullContainer && "fullContainer"}`}>
-            <Spin size={props.size ? props.size : 'large'} />
+        <div className={`LoadingBox ${fullScreen && "fullScreen"} ${fullContainer && "fullContainer"}`}>
+            <Spin size={size} />
         </div>
     )
 }

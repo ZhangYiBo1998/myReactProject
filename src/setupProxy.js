@@ -2,7 +2,7 @@ const proxy = require('http-proxy-middleware');
 const {
     proxy8090,
     proxy53000
-} = require('./Global/proxy_variable.js');
+} = require('./utils/proxy_variable.js');
 
 module.exports = function (app) {
     app.use(
