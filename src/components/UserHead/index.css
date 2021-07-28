@@ -3,25 +3,45 @@
     width: 100%;
     height: 80px;
     background-color: rgb(245, 245, 245);
+    -webkit-box-shadow: rgba(128, 128, 128, 0.5) 8px 8px 30px;
     box-shadow: rgba(128, 128, 128, 0.5) 8px 8px 30px;
     position: fixed;
     top: 0;
     left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 .UserHead .right {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
 }
 
 .UserHead .userInfo {
     margin-right: 10px;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
 }
 
@@ -33,8 +53,14 @@
 }
 
 .UserHead .userInfo .userName {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     margin-bottom: 4px;
     margin-right: 10px;
@@ -46,5 +72,7 @@
 }
 
 .UserHead .userInfo .userName .more {
+    -webkit-transform: translate(-10px, 0) scale(1.5);
+    -ms-transform: translate(-10px, 0) scale(1.5);
     transform: translate(-10px, 0) scale(1.5);
 }
