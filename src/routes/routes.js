@@ -20,12 +20,16 @@ export const navRouterArr = [{
     name: '游戏',
     icon: '',
     path: '/home/game',
-    // component: lazy(() => import('../pages/Home/Game')),
     childen: [{
         name: '五子棋',
         icon: '',
         path: '/home/game/gobang',
         component: lazy(() => import('../pages/Home/Game/Gobang')),
+    }, {
+        name: '坦克大战',
+        icon: '',
+        path: '/home/game/tank',
+        component: lazy(() => import('../pages/Home/Game/Tank')),
     }, ],
     showChilden: true,
 }, {

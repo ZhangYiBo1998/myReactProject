@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default function Game(props) {
-
+export default function Tank() {
     return (
         <div>
-            Game组件
+            坦克大战
         </div>
     )
 }
