@@ -20,10 +20,13 @@ export default function Navigation() {
             return (
                 <div key={obj.path}>
                     <div className="itemBox" onClick={() => hasChilden && showChilden(obj)}>
-                        <NavLink activeClassName="active" className='item' style={{
-                            paddingLeft: `${paddingLeft}px`,
-                            fontSize: `${fontSize}em`,
-                        }} to={obj.path}>{obj.name}</NavLink>
+                        {
+                            hasChilden ?
+                                <div className='item'>{obj.name}</div> :
+                                <NavLink activeClassName="active" className='item' style={{ paddingLeft: `${paddingLeft}px`, fontSize: `${fontSize}em`, }} to={obj.path}>
+                                    {obj.name}
+                                </NavLink>
+                        }
                         <div className='arrowIcon'>
                             {hasChilden && obj.arrowIcon}
                         </div>

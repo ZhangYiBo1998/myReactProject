@@ -20,7 +20,7 @@ export const navRouterArr = [{
     name: '游戏',
     icon: '',
     path: '/home/game',
-    component: lazy(() => import('../pages/Home/Game')),
+    // component: lazy(() => import('../pages/Home/Game')),
     childen: [{
         name: '五子棋',
         icon: '',

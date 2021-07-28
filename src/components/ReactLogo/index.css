@@ -1,5 +1,6 @@
 .ReactLogo {
     text-align: center;
+    user-select: none;
 }
 
 .ReactLogo .App-logo {

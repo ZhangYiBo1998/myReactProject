@@ -5,8 +5,9 @@
     /* min-height: 95vh; */
     background-color: #282c34;
     color: #fff;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     text-align: center;
+    user-select: none;
 }
 
 .Navigation .head {

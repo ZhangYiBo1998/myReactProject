@@ -7,6 +7,23 @@ import './index.css';
 import Navigation from './Navigation';
 
 export default function Home(props) {
+
+    function seconderyRouter(arr) {
+        return arr.map((obj) => {
+            const hasChilden = obj.childen && obj.childen.length;
+
+            return (
+                <div key={obj.path}>
+                    {hasChilden ?
+                        <Route path={obj.childen[0].path} component={obj.component} />
+                        : <Route path={obj.path} component={obj.component} />
+                    }
+                </div>
+            )
+
+        })
+    }
+
     return (
         <div className='homePage'>
             <UserHead />
