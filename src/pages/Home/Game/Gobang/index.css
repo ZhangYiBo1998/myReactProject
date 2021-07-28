@@ -1,0 +1,18 @@
+.Gobang {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.Gobang .Pieces {
+    width: max-content;
+    border: 1px solid #000;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.Gobang .Pieces .row {
+    display: flex;
+    flex-direction: row;
+}
