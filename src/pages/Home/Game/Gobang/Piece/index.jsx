@@ -5,15 +5,15 @@ export default function Piece(props) {
     const [state, setstate] = useState({
         empty: !0,//初始化时棋盘为空
         isBlack: props.isBlack,//判断是否是黑棋
-        location: props.location,
+        coordinate: props.coordinate,
     })
 
     function changeStatus() {
         if (!state.empty) {
             return;
         }
-        setstate({ ...state, empty: !1, isBlack: !props.isBlack });
-        props.changeStatus(!props.isBlack);
+        setstate({ ...state, empty: !1, isBlack: props.isBlack });
+        props.changeStatus(props.isBlack, state.coordinate);
     }
 
     return (
