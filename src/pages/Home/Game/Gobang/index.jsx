@@ -45,7 +45,7 @@ export default function Gobang() {
             ...state,
             pieceStatus: pieceStatus * (-1),
             coordinateObj: newCoordinateObj,
-            historyArr: [newCoordinateObj, ...state.historyArr]
+            historyArr: [`${coordinate.row}-${coordinate.column}`, ...state.historyArr]
         });
         // 每走一步棋就检测是否赢得比赛
         (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 1));
@@ -129,7 +129,9 @@ export default function Gobang() {
 
     // 悔棋
     const repentance = () => {
-
+        const newCoordinateObj = { ...state.coordinateObj };
+        delete newCoordinateObj[state.historyArr[0]];
+        setState({ ...state, coordinateObj: newCoordinateObj })
     }
 
     return (

@@ -4,7 +4,7 @@ import './index.css';
 function Piece(props) {
     const [state, setState] = useState({
         pieceStatus: 0,//黑棋：1，白棋：-1，空：0
-        coordinate: props.coordinate,
+        coordinate: props.coordinate,//{row:横坐标,column:纵坐标,value:值}
     })
 
     function changeStatus() {
@@ -27,14 +27,13 @@ function Piece(props) {
     return (
         <div className={`Piece ${props.size > 10 ? 'small' : 'normal'}`} onClick={changeStatus}>
             {
-                // !!state.coordinate.value && (
-                //     state.coordinate.value === 1 ? 
-                //     <div className='piece Black'></div> : 
+                // (!!state.pieceStatus) && (state.pieceStatus === 1 ?
+                //     <div className='piece Black'></div> :
                 //     <div className='piece White'></div>)
-                (!!state.pieceStatus) && (
-                    state.pieceStatus === 1 ?
-                        <div className='piece Black'></div> :
-                        <div className='piece White'></div>)
+
+                (!!props.coordinate.value) && (props.coordinate.value === 1 ?
+                    <div className='piece Black'></div> :
+                    <div className='piece White'></div>)
             }
         </div>
     )
