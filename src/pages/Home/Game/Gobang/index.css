@@ -4,12 +4,14 @@
     text-align: center;
 }
 
+.Gobang .body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
 .Gobang .Pieces {
     width: max-content;
-    border: 1px solid #000;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0);
 }
 
 .Gobang .Pieces .row {
