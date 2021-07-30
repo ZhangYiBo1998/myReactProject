@@ -130,8 +130,11 @@ export default function Gobang() {
     // 悔棋
     const repentance = () => {
         const newCoordinateObj = { ...state.coordinateObj };
-        delete newCoordinateObj[state.historyArr[0]];
-        setState({ ...state, coordinateObj: newCoordinateObj })
+        const arr = state.historyArr;
+        delete newCoordinateObj[arr[0]];
+        arr.shift();
+
+        setState({ ...state, coordinateObj: newCoordinateObj, historyArr: arr })
     }
 
     return (
