@@ -12,26 +12,23 @@ export default function Gobang() {
             columnArr: new Array(10).fill(1),
         },
         size: 10,
-        isBlack: !0,
-        coordinateObj: {},//坐标对象
-        clear: !1,
-        historyArr: [],//历史记录
+        pieceStatus: 1,// 黑棋：1，白棋：-1，空：0
+        coordinateObj: {},// 坐标对象，同时存储已选择棋格的值，如：{'1-1':1,'1-2':0,'1-3':-1}
+        historyArr: [],// 历史记录
     })
-
 
     // 初始化棋盘
     const init = () => {
         const { rowArr, columnArr } = state.checkerboard;
+
         return rowArr.map((obj, rindex) => {
             return (
                 <div className="row" key={`row-${rindex}`}>
                     {columnArr.map((obj, cindex) => {
                         // 需要传递的props参数
                         const propsObj = {
-                            coordinate: { row: rindex, column: cindex },
-                            isBlack: state.isBlack,
-                            size: state.size,
-                            clear: state.clear,
+                            coordinate: { row: rindex, column: cindex, value: state.coordinateObj[`${rindex}-${cindex}`] || 0 },
+                            pieceStatus: state.pieceStatus,
                             changeStatus: changeStatus,
                         }
                         return <Piece key={`column-${cindex}`} {...propsObj} />;
@@ -41,19 +38,25 @@ export default function Gobang() {
         })
     }
 
-    const changeStatus = (isBlack, coordinate) => {
+    const changeStatus = (pieceStatus, coordinate) => {
         let isWin = !1;
-        const newCoordinateObj = { ...state.coordinateObj, [`${coordinate.row}-${coordinate.column}`]: isBlack }
-        setState({ ...state, isBlack: !isBlack, coordinateObj: newCoordinateObj, historyArr: [`${coordinate.row}-${coordinate.column}`, ...state.historyArr] });
+        const newCoordinateObj = { ...state.coordinateObj, [`${coordinate.row}-${coordinate.column}`]: pieceStatus }
+        setState({
+            ...state,
+            pieceStatus: pieceStatus * (-1),
+            coordinateObj: newCoordinateObj,
+            historyArr: [newCoordinateObj, ...state.historyArr]
+        });
         // 每走一步棋就检测是否赢得比赛
-        isWin = (!isWin) && check(coordinate.row, coordinate.column, isBlack, 1);
-        isWin = (!isWin) && check(coordinate.row, coordinate.column, isBlack, 2);
-        isWin = (!isWin) && check(coordinate.row, coordinate.column, isBlack, 3);
-        (!isWin) && check(coordinate.row, coordinate.column, isBlack, 4);
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 1));
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 2));
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 3));
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 4));
+        isWin && message.success(`${pieceStatus === 1 ? '黑' : '白'}棋连成五子,${pieceStatus === 1 ? '黑' : '白'}棋赢了`);
     }
 
     // 检测是否赢棋
-    const check = (row, column, isBlack, direction = 1) => {
+    const check = (row, column, pieceStatus, direction = 1) => {
         let currentRow = row, currentColumn = column, num = 1, turnAroundFlag = !1;
         const { coordinateObj } = state;
         const directionObj = {
@@ -81,9 +84,9 @@ export default function Gobang() {
 
         while (num <= 4) {
             directionObj[direction]();
-            if (coordinateObj[`${currentRow}-${currentColumn}`] === isBlack) {
+            if (coordinateObj[`${currentRow}-${currentColumn}`] === pieceStatus) {
                 num = num + 1;
-            } else if (coordinateObj[`${currentRow}-${currentColumn}`] !== isBlack) {
+            } else if (coordinateObj[`${currentRow}-${currentColumn}`] !== pieceStatus) {
                 if (turnAroundFlag) {
                     break;
                 }
@@ -94,7 +97,6 @@ export default function Gobang() {
         }
 
         if (num === 5) {
-            message.success(`${isBlack ? '黑' : '白'}棋连成五子,${isBlack ? '黑' : '白'}棋赢了`);
             return !0;
         }
         return !1;
@@ -103,9 +105,8 @@ export default function Gobang() {
     // 清除棋子状态
     const clearPiece = () => {
         const initObj = {
-            isBlack: !0,
+            pieceStatus: 0,
             coordinateObj: {},
-            clear: !state.clear,
             historyArr: [],
         }
         setState({ ...state, ...initObj })
@@ -119,9 +120,8 @@ export default function Gobang() {
                 rowArr: new Array(size).fill(1),
                 columnArr: new Array(size).fill(1),
             },
-            isBlack: !0,
+            pieceStatus: 0,
             coordinateObj: {},
-            clear: !state.clear,
             historyArr: [],
         }
         setState({ ...state, ...initObj, })
@@ -139,7 +139,8 @@ export default function Gobang() {
                 <div className='Pieces'>
                     {init()}
                 </div>
-                <Scoreboard isBlack={state.isBlack} changeChessboardSize={changeChessboardSize} clearPiece={clearPiece} repentance={repentance} />
+                <Scoreboard pieceStatus={state.pieceStatus} changeChessboardSize={changeChessboardSize}
+                    clearPiece={clearPiece} repentance={repentance} />
             </div>
 
         </div>

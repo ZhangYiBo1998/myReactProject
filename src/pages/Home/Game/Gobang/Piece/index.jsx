@@ -1,39 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
 
-export default function Piece(props) {
+function Piece(props) {
     const [state, setState] = useState({
-        empty: !0,//初始化时棋盘为空
-        isBlack: props.isBlack,//判断是否是黑棋
+        pieceStatus: 0,//黑棋：1，白棋：-1，空：0
         coordinate: props.coordinate,
-        oldState: {},
     })
 
     function changeStatus() {
-        if (!state.empty) {
+        if (state.pieceStatus) {
             return;
         }
-        setState({ ...state, oldState: { ...state, oldState: {} }, empty: !1, isBlack: props.isBlack });
-        props.changeStatus(props.isBlack, state.coordinate);
+        // 可能在悔棋功能中存在bug
+        setState({ ...state, pieceStatus: props.pieceStatus || 1 });
+        props.changeStatus(props.pieceStatus || 1, state.coordinate);
     }
 
     useEffect(() => {
-        // 监听props.clear的值变化，如果变化为true，就执行初始化
-        !state.empty && setState({
-            empty: !0,//初始化时棋盘为空
-            isBlack: props.isBlack,//判断是否是黑棋
+        // 监听props.pieceStatus的值变化，如果变化为0，就执行清空棋盘操作
+        state.pieceStatus && props.pieceStatus === 0 && setState({
+            pieceStatus: 0,//判断是否是黑棋
             coordinate: props.coordinate,
-            oldState: {},
         })
-    }, [props.clear])
+    }, [props.pieceStatus])
 
     return (
         <div className={`Piece ${props.size > 10 ? 'small' : 'normal'}`} onClick={changeStatus}>
             {
-                !state.empty && (state.isBlack ?
-                    <div className='piece Black'></div> :
-                    <div className='piece White'></div>)
+                // !!state.coordinate.value && (
+                //     state.coordinate.value === 1 ? 
+                //     <div className='piece Black'></div> : 
+                //     <div className='piece White'></div>)
+                (!!state.pieceStatus) && (
+                    state.pieceStatus === 1 ?
+                        <div className='piece Black'></div> :
+                        <div className='piece White'></div>)
             }
         </div>
     )
 }
+
+/*  React.memo是一个高阶组件，类似于React.PureComponent，只不过用于函数组件而非class组件。
+    如果你的函数组件在相同props下渲染出相同结果，你可以把它包裹在React.memo中来通过缓存渲染结果来实现性能优化。
+    这意味着React会跳过组件渲染，而使用上次渲染结果。
+    React.memo默认只会浅比较props，如果需要定制比较，你可以给第二个参数传入自定义比较函数
+*/
+export default Piece;
