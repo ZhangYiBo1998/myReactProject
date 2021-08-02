@@ -22,7 +22,7 @@ function UserHead(props) {
             return;
         }
         if (e.key === "Github") {
-            console.log('前往github主页');
+            window.open('https://github.com/ZhangYiBo1998/my_react_project');
             return;
         }
         if (e.key === "signOut") {
