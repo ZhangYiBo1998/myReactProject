@@ -60,9 +60,15 @@ function UserHead(props) {
                         <Avatar size={50} icon={<UserOutlined />} />
                     </div>
                     <div className='userName'>
-                        <Dropdown.Button overlay={menu} placement="bottomCenter" icon={<MoreOutlined className='more' />}>
+                        {/* <Dropdown.Button overlay={menu} trigger={['click']} icon={<MoreOutlined className='more' />}>
                             {state.userName}
-                        </Dropdown.Button>
+                        </Dropdown.Button> */}
+                        <Dropdown overlay={menu} trigger={['click']}>
+                            <span style={{ cursor: 'pointer' }} onClick={e => e.preventDefault()}>
+                                {state.userName} <MoreOutlined className='more' />
+                            </span>
+                        </Dropdown>
+
                     </div>
                 </div>
             </div>

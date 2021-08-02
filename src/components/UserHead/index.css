@@ -49,7 +49,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /* margin-right: 10px; */
+    margin-right: 10px;
 }
 
 .UserHead .userInfo .userName {
@@ -72,7 +72,7 @@
 }
 
 .UserHead .userInfo .userName .more {
-    -webkit-transform: translate(-10px, 0) scale(1.5);
-    -ms-transform: translate(-10px, 0) scale(1.5);
-    transform: translate(-10px, 0) scale(1.5);
+    -webkit-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
 }
