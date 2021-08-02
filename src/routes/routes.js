@@ -2,6 +2,7 @@ import {
     lazy
 } from 'react';
 import HomePage from '../pages/Home';
+import Initialization from '../pages/Home/Initialization';
 import LoginPage from '../pages/Login';
 
 //定义导航路由,最多不要超过3级，否则样式会出错
@@ -15,7 +16,7 @@ export const navRouterArr = [{
     name: '首页',
     icon: '',
     path: '/home/index',
-    component: lazy(() => import('../pages/Home/Initialization')), //路由懒加载
+    component: Initialization,
 }, {
     name: '游戏',
     icon: '',
@@ -24,7 +25,7 @@ export const navRouterArr = [{
         name: '五子棋',
         icon: '',
         path: '/home/game/gobang',
-        component: lazy(() => import('../pages/Home/Game/Gobang')),
+        component: lazy(() => import('../pages/Home/Game/Gobang')), //路由懒加载
     }, {
         name: '坦克大战',
         icon: '',

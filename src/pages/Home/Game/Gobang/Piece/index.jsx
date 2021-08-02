@@ -58,10 +58,11 @@ class Piece extends Component {
     }
 
     render() {
+        const { size, coordinate } = this.props;
         return (
-            <div className={`Piece ${this.props.size > 10 ? 'small' : 'normal'}`} onClick={this.changeStatus}>
+            <div className={`Piece ${size > 10 ? 'small' : 'normal'}`} onClick={this.changeStatus}>
                 {
-                    (!!this.props.coordinate.value) && (this.props.coordinate.value === 1 ?
+                    (!!coordinate.value) && (coordinate.value === 1 ?
                         <div className='piece Black'></div> :
                         <div className='piece White'></div>)
                 }

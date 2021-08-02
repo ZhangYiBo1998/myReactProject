@@ -33,6 +33,7 @@ export default function Gobang() {
                             pieceStatus: state.pieceStatus,
                             canControl: state.canControl,
                             changeStatus: changeStatus,
+                            size: state.size,
                         }
                         return <Piece key={`column-${cindex}`} {...propsObj} />;
                     })}
