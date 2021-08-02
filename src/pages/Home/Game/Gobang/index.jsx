@@ -15,6 +15,8 @@ export default function Gobang() {
         pieceStatus: 1,// 黑棋：1，白棋：-1，空：0
         coordinateObj: {},// 坐标对象，同时存储已选择棋格的值，如：{'1-1':1,'1-2':0,'1-3':-1}
         historyArr: [],// 历史记录
+        canControl: !0,
+        isWin: 0,// 1胜者黑棋，-1胜者白棋，0没有胜者
     })
 
     // 初始化棋盘
@@ -29,6 +31,7 @@ export default function Gobang() {
                         const propsObj = {
                             coordinate: { row: rindex, column: cindex, value: state.coordinateObj[`${rindex}-${cindex}`] || 0 },
                             pieceStatus: state.pieceStatus,
+                            canControl: state.canControl,
                             changeStatus: changeStatus,
                         }
                         return <Piece key={`column-${cindex}`} {...propsObj} />;
@@ -40,25 +43,28 @@ export default function Gobang() {
 
     const changeStatus = (pieceStatus, coordinate) => {
         let isWin = !1;
-        const newCoordinateObj = { ...state.coordinateObj, [`${coordinate.row}-${coordinate.column}`]: pieceStatus }
+        const newCoordinateObj = { ...state.coordinateObj, [`${coordinate.row}-${coordinate.column}`]: pieceStatus };
+
+        // 每走一步棋就检测是否赢得比赛
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, newCoordinateObj, 1));
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, newCoordinateObj, 2));
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, newCoordinateObj, 3));
+        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, newCoordinateObj, 4));
+        isWin && message.success(`${pieceStatus === 1 ? '黑' : '白'}棋连成五子,${pieceStatus === 1 ? '黑' : '白'}棋赢了`);
         setState({
             ...state,
             pieceStatus: pieceStatus * (-1),
             coordinateObj: newCoordinateObj,
-            historyArr: [`${coordinate.row}-${coordinate.column}`, ...state.historyArr]
+            historyArr: [`${coordinate.row}-${coordinate.column}`, ...state.historyArr],
+            canControl: !isWin, //比赛结束禁止继续操作棋盘
+            isWin: isWin && pieceStatus,
         });
-        // 每走一步棋就检测是否赢得比赛
-        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 1));
-        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 2));
-        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 3));
-        (!isWin) && (isWin = check(coordinate.row, coordinate.column, pieceStatus, 4));
-        isWin && message.success(`${pieceStatus === 1 ? '黑' : '白'}棋连成五子,${pieceStatus === 1 ? '黑' : '白'}棋赢了`);
     }
 
     // 检测是否赢棋
-    const check = (row, column, pieceStatus, direction = 1) => {
+    const check = (row, column, pieceStatus, coordinateObj, direction = 1) => {
         let currentRow = row, currentColumn = column, num = 1, turnAroundFlag = !1;
-        const { coordinateObj } = state;
+        // const { coordinateObj } = state;
         const directionObj = {
             1: () => { !turnAroundFlag ? currentRow-- : currentRow++; },
             2: () => { !turnAroundFlag ? currentColumn-- : currentColumn++; },
@@ -108,6 +114,8 @@ export default function Gobang() {
             pieceStatus: 0,
             coordinateObj: {},
             historyArr: [],
+            canControl: !0,
+            isWin: 0,
         }
         setState({ ...state, ...initObj })
     }
@@ -144,7 +152,7 @@ export default function Gobang() {
                 <div className='Pieces'>
                     {init()}
                 </div>
-                <Scoreboard pieceStatus={state.pieceStatus} changeChessboardSize={changeChessboardSize}
+                <Scoreboard pieceStatus={state.pieceStatus} isWin={state.isWin} changeChessboardSize={changeChessboardSize}
                     clearPiece={clearPiece} repentance={repentance} />
             </div>
 

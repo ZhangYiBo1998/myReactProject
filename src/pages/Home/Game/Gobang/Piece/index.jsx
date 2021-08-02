@@ -42,7 +42,7 @@ class Piece extends Component {
         coordinate: this.props.coordinate,//{row:横坐标,column:纵坐标,value:值}
     }
     changeStatus = () => {
-        if (this.state.pieceStatus) {
+        if ((!this.props.canControl) || this.state.pieceStatus) {
             return;
         }
         // 可能在悔棋功能中存在bug

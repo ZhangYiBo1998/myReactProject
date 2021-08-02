@@ -36,6 +36,9 @@ export default function Scoreboard(props) {
                 <Button onClick={clearPiece}>清空棋盘</Button>
                 <Button onClick={repentance}>悔棋</Button>
             </div>
+            <div>
+                {!!props.isWin && (props.isWin === 1 ? <h1>胜利者是黑棋</h1> : <h1>胜利者是白棋</h1>)}
+            </div>
         </div>
     )
 }
