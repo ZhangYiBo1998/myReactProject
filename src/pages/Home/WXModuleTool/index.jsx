@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import "./bootstrap.min.css";
@@ -317,20 +318,24 @@ export default class WXModuleTool extends Component {
                                                 <div className="col-sm-4">
                                                     <input type="text" className="form-control" id={`paramArr_value_${item.id}`} defaultValue={item.value} onChange={e => item.value = e.target.value} />
                                                 </div>
-                                                {index > 0 && (<button type="button" className="col-sm-auto btn btn-outline-primary" onClick={(e) => { return this.reduce(e, item.id) }}>删除</button>)}
+                                                {/* {index > 0 && (<button type="button" className="col-sm-auto btn btn-outline-primary" onClick={(e) => { return this.reduce(e, item.id) }}>删除</button>)} */}
+                                                {index > 0 && (<Button className="col-sm-auto" onClick={(e) => { return this.reduce(e, item.id) }}>删除</Button>)}
                                             </div>
                                         )
                                     })
                                 }
-                                <button type="button" className="btn btn-outline-primary" style={{ marginRight: 15 }} onClick={this.add}>新增</button>
-                                <button type="button" className="btn btn-primary" style={{ marginRight: 15 }} onClick={this.save}>保存</button>
+                                {/* <button type="button" className="btn btn-outline-primary" style={{ marginRight: 15 }} onClick={this.add}>新增</button>
+                                <button type="button" className="btn btn-primary" style={{ marginRight: 15 }} onClick={this.save}>保存</button> */}
+                                <Button style={{ marginRight: 15 }} onClick={this.add}>新增</Button>
+                                <Button type="primary" style={{ marginRight: 15 }} onClick={this.save}>保存</Button>
                                 <label htmlFor="exampleFormControlInput1" className="col-sm-auto col-form-label">该模式编译链接需要点击保存按钮</label>
                             </div>
                         )
                     }
                 </div>
 
-                <button type="button" className="btn btn-outline-danger" onClick={this.clearData}>清空数据</button>
+                <Button danger onClick={this.clearData}>清空数据</Button>
+                {/* <button type="button" className="btn btn-outline-danger" onClick={this.clearData}>清空数据</button> */}
                 <div style={{ width: '100 %', height: 10 }} />
 
                 <div className="mb-3">
