@@ -40,14 +40,14 @@ export const navRouterArr = [
   {
     name: "SVG练习",
     icon: "",
-    path: "/home/form",
+    path: "/home/SVGStudy",
     component: lazy(() => import("../pages/Home/SVGStudy")),
   },
   {
     name: "微信链接工具",
     icon: "",
-    path: "/home/urlToolForNgari",
-    component: lazy(() => import("../pages/Home/UrlToolForNgari")),
+    path: "/home/WXModuleTool",
+    component: lazy(() => import("../pages/Home/WXModuleTool")),
   },
   {
     name: "关于我",
