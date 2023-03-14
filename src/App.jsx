@@ -1,5 +1,5 @@
 // 必须引入antd.css，否则antd组件样式不显示
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import React, { Suspense, useState } from 'react';
 // 引入路由模块
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';

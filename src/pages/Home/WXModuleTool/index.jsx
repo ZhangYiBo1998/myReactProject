@@ -1,8 +1,10 @@
-import { Button } from 'antd';
+import { Button, Col, Input, Row, Tabs } from 'antd';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import "./bootstrap.min.css";
+// import "./bootstrap.min.css";
 import "./index.css";
+
+const { TextArea } = Input;
 
 export default class WXModuleTool extends Component {
 
@@ -114,13 +116,13 @@ export default class WXModuleTool extends Component {
     }
 
     // 切换选项卡
-    changeTabsFuc = (e, tabs) => {
+    changeTabsFuc = (tabs) => {
         this.setState({ tabs });
         this.getEncryptionUrlAsyn();
     }
 
     // 切换选项卡
-    changeEncryptTabsFuc = (e, encryptTabs) => {
+    changeEncryptTabsFuc = (encryptTabs) => {
         this.setState({ encryptTabs });
         this.getEncryptionUrlAsyn();
     }
@@ -187,13 +189,13 @@ export default class WXModuleTool extends Component {
     }
 
     encryptionTextFuc = (e) => {
-        let value = this.encryptionTextDom.value;
+        let value = this.state.encryptionText;
         value = encodeURIComponent(value);
         this.setState({ encryptionText: value })
     }
 
     reEncryptionUrlFuc = (e) => {
-        let value = this.reEncryptionStrDom.value;
+        let value = this.state.reEncryptionUrl;
 
         if (value.substring(5, 8) === "%3A" || value.substring(4, 7) === "%3A") {
             // 所以全部被编码了
@@ -212,7 +214,7 @@ export default class WXModuleTool extends Component {
     }
 
     decryptUrlFuc = (e) => {
-        let value = this.decryptStrDom.value;
+        let value = this.state.decryptUrl;
 
         if (value.substring(5, 8) === "%3A" || value.substring(4, 7) === "%3A") {
             // 所以全部被编码了
@@ -264,131 +266,131 @@ export default class WXModuleTool extends Component {
     render() {
         let { paramArr, paramStr, module, appid, http, tabs, url, encryptionUrl, encryptTabs, encryptionText, reEncryptionUrl, decryptUrl } = this.state;
 
+
         return (
             <div className="page">
-                <div className="mb-3 row">
-                    <label htmlFor="httpInput" className="requiredIcon labelWidth col-form-label">http链接</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="httpInput" value={http} placeholder="公众号复制的http链接，例：http://zyb.frp.ngarihealth.com/index.html" onChange={e => { this.setStateValueFuc(e, 'http') }} />
-                    </div>
+                <div className='labelBox_inline'>
+                    <label className="requiredIcon labelWidth">http链接</label>
+                    <Input id="httpInput" value={http} placeholder="公众号复制的http链接，例：http://zyb.frp.ngarihealth.com/index.html" onChange={e => { this.setStateValueFuc(e, 'http') }} />
                 </div>
 
-                <div className="mb-3 row">
-                    <label htmlFor="wxappidInput" className="requiredIcon labelWidth col-form-label">wxappid</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="wxappidInput" value={appid} placeholder="公众号的wxappid，例：wx5c087b6afce9cdb2" onChange={e => { this.setStateValueFuc(e, 'appid') }} />
-                    </div>
+                <div className='labelBox_inline'>
+                    <label className="requiredIcon labelWidth">wxappid</label>
+                    <Input id="wxappidInput" value={appid} placeholder="公众号的wxappid，例：wx5c087b6afce9cdb2" onChange={e => { this.setStateValueFuc(e, 'appid') }} />
                 </div>
 
-                <div className="mb-3 row">
-                    <label htmlFor="moduleInput" className="labelWidth col-form-label">module模块名</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="moduleInput" value={module} placeholder="外链进入的模块名，例：recordSearch" onChange={e => { this.setStateValueFuc(e, 'module') }} />
-                    </div>
+                <div className='labelBox_inline'>
+                    <label className="labelWidth">module模块名</label>
+                    <Input id="moduleInput" value={module} placeholder="外链进入的模块名，例：recordSearch" onChange={e => { this.setStateValueFuc(e, 'module') }} />
                 </div>
 
-                <div className="mb-3">
-                    <ul className="nav nav-tabs">
-                        <li className="nav-item">
-                            <a className={tabs === 1 ? 'nav-link active' : 'nav-link'} href="#" onClick={e => { this.changeTabsFuc(e, 1) }}>字符串拼接入参</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className={tabs === 2 ? 'nav-link active' : 'nav-link'} href="#" onClick={e => { this.changeTabsFuc(e, 2) }}>选项输入</a>
-                        </li>
-                    </ul>
-                    <br />
+                <div>
+                    <Tabs defaultActiveKey={1} items={[
+                        {
+                            key: 1,
+                            label: `字符串拼接入参`,
+                        },
+                        {
+                            key: 2,
+                            label: `选项输入`,
+                        },
+                    ]} onChange={this.changeTabsFuc} />
                     {
                         // 切换选项卡
                         tabs === 1 ? (
                             <div>
-                                <label htmlFor="paramStrTextarea" className="form-label">参数拼接</label>
-                                <textarea className="form-control" id="paramStrTextarea" rows={3} value={paramStr} placeholder="外链入参拼接的字符串，例：organId=1&organName=邵逸夫医院" onChange={e => { this.setStateValueFuc(e, 'paramStr') }} />
+                                <TextArea id="paramStrTextarea" rows={3} value={paramStr} placeholder="外链入参拼接的字符串，例：organId=1&organName=邵逸夫医院" onChange={e => { this.setStateValueFuc(e, 'paramStr') }} />
                             </div>
                         ) : (
                             <div>
                                 {
                                     paramArr.map((item, index) => {
                                         return (
-                                            <div key={item.id} className="mb-3 row">
-                                                <label htmlFor={`paramArr_key_${item.id}`} className="requiredIcon col-sm-auto col-form-label">key</label>
-                                                <div className="col-sm-4">
-                                                    <input type="text" className="form-control" id={`paramArr_key_${item.id}`} defaultValue={item.key} onChange={e => item.key = e.target.value} />
-                                                </div>
-                                                <label htmlFor={`paramArr_value_${item.id}`} className="requiredIcon col-sm-auto col-form-label">value</label>
-                                                <div className="col-sm-4">
-                                                    <input type="text" className="form-control" id={`paramArr_value_${item.id}`} defaultValue={item.value} onChange={e => item.value = e.target.value} />
-                                                </div>
-                                                {/* {index > 0 && (<button type="button" className="col-sm-auto btn btn-outline-primary" onClick={(e) => { return this.reduce(e, item.id) }}>删除</button>)} */}
-                                                {index > 0 && (<Button className="col-sm-auto" onClick={(e) => { return this.reduce(e, item.id) }}>删除</Button>)}
-                                            </div>
+                                            <Row key={item.id} gutter="16">
+                                                <Col span={12} className="inline">
+                                                    <label className="requiredIcon" style={{ marginRight: "8px" }}>key</label>
+                                                    <Input id={`paramArr_key_${item.id}`} defaultValue={item.key} onChange={e => item.key = e.target.value} />
+                                                </Col>
+                                                <Col span={12} className="inline">
+                                                    <label className="requiredIcon" style={{ marginRight: "8px" }}>value</label>
+                                                    <Input id={`paramArr_value_${item.id}`} defaultValue={item.value} onChange={e => item.value = e.target.value} />
+                                                    {index > 0 && (<Button className="col-sm-auto" onClick={(e) => { return this.reduce(e, item.id) }}>删除</Button>)}
+                                                </Col>
+                                            </Row>
                                         )
                                     })
                                 }
-                                {/* <button type="button" className="btn btn-outline-primary" style={{ marginRight: 15 }} onClick={this.add}>新增</button>
-                                <button type="button" className="btn btn-primary" style={{ marginRight: 15 }} onClick={this.save}>保存</button> */}
+                                <br />
                                 <Button style={{ marginRight: 15 }} onClick={this.add}>新增</Button>
                                 <Button type="primary" style={{ marginRight: 15 }} onClick={this.save}>保存</Button>
-                                <label htmlFor="exampleFormControlInput1" className="col-sm-auto col-form-label">该模式编译链接需要点击保存按钮</label>
+                                <label>该模式编译链接需要点击保存按钮</label>
                             </div>
                         )
                     }
                 </div>
-
+                <br />
                 <Button danger onClick={this.clearData}>清空数据</Button>
-                {/* <button type="button" className="btn btn-outline-danger" onClick={this.clearData}>清空数据</button> */}
                 <div style={{ width: '100 %', height: 10 }} />
 
-                <div className="mb-3">
-                    <ul className="nav nav-tabs">
-                        <li className="nav-item">
-                            <a className={encryptTabs === 1 ? 'nav-link active' : 'nav-link'} href="#" onClick={e => { this.changeEncryptTabsFuc(e, 1) }}>编码链接</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className={encryptTabs === 2 ? 'nav-link active' : 'nav-link'} href="#" onClick={e => { this.changeEncryptTabsFuc(e, 2) }}>重编码链接&解码链接</a>
-                        </li>
-                    </ul>
-                    <br />
+                <div>
+                    <Tabs defaultActiveKey="1" items={[
+                        {
+                            key: 1,
+                            label: `编码链接`,
+                        },
+                        {
+                            key: 2,
+                            label: `重编码链接&解码链接`,
+                        },
+                    ]} onChange={this.changeEncryptTabsFuc} />
                     {
                         encryptTabs === 1 ? (
                             <div>
-
-                                <div className="mb-3">
-                                    <label htmlFor="encryptionUrlTextarea" className="form-label">编码后链接：</label>
-                                    <button type="button" className="btn btn-outline-primary" onClick={() => { this.copy(encryptionUrl) }}>复制</button>
-                                    <textarea className="form-control" id="encryptionUrlTextarea" disabled rows={3} value={encryptionUrl} />
+                                <div>
+                                    <div style={{ margin: "10px 0" }}>
+                                        <label>编码后链接：</label>
+                                        <Button onClick={() => { this.copy(encryptionUrl) }}>复制</Button>
+                                    </div>
+                                    <TextArea id="encryptionUrlTextarea" disabled rows={4} value={encryptionUrl} />
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="urlTextarea" className="form-label">编码前链接：</label>
-                                    <button type="button" className="btn btn-outline-primary" onClick={() => { this.copy(url) }}>复制</button>
+                                <div>
+                                    <div style={{ margin: "10px 0" }}>
+                                        <label>编码前链接：</label>
+                                        <Button onClick={() => { this.copy(url) }}>复制</Button>
+                                    </div>
                                     <div className="textareaStyle" id="urlTextarea" ref={c => { this.urlHtmlDom = c }}></div>
-                                </div></div>
+                                </div>
+                            </div>
                         ) : (
                             <div>
-                                <div className="mb-3">
-                                    <label htmlFor="encryptionTextarea" className="form-label">编码链接：</label>
-                                    <button type="button" className="btn btn-outline-primary" onClick={() => { this.encryptionTextFuc(url) }}>编码</button>
-                                    <textarea className="form-control" id="encryptionTextarea" rows={5} value={encryptionText} placeholder="输入需要编码的链接"
-                                        ref={c => { this.encryptionTextDom = c }} onChange={e => { this.setStateValueFuc(e, 'encryptionText') }} />
+                                <div>
+                                    <div style={{ margin: "10px 0" }}>
+                                        <label>编码链接：</label>
+                                        <Button onClick={() => { this.encryptionTextFuc() }}>编码</Button>
+                                    </div>
+                                    <TextArea id="encryptionTextarea" rows={5} value={encryptionText} placeholder="输入需要编码的链接"
+                                        onChange={e => { this.setStateValueFuc(e, 'encryptionText') }} />
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="reEncryptionTextarea" className="form-label">重编码链接：</label>
-                                    <button type="button" className="btn btn-outline-primary" onClick={() => { this.reEncryptionUrlFuc(url) }}>重编码</button>
-                                    <textarea className="form-control" id="reEncryptionTextarea" rows={5} value={reEncryptionUrl} placeholder="输入需要重编码的链接"
-                                        ref={c => { this.reEncryptionStrDom = c }} onChange={e => { this.setStateValueFuc(e, 'reEncryptionUrl') }} />
+                                <div>
+                                    <div style={{ margin: "10px 0" }}>
+                                        <label>重编码链接：</label>
+                                        <Button onClick={() => { this.reEncryptionUrlFuc() }}>重编码</Button>
+                                    </div>
+                                    <TextArea id="reEncryptionTextarea" rows={5} value={reEncryptionUrl} placeholder="输入需要重编码的链接"
+                                        onChange={e => { this.setStateValueFuc(e, 'reEncryptionUrl') }} />
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="decryptTextarea" className="form-label">解码链接：</label>
-                                    <button type="button" className="btn btn-outline-primary" onClick={() => { this.decryptUrlFuc(url) }}>解码</button>
-                                    <textarea className="form-control" id="decryptTextarea" rows={5} value={decryptUrl} placeholder="输入需要解码的链接"
-                                        ref={c => { this.decryptStrDom = c }} onChange={e => { this.setStateValueFuc(e, 'decryptUrl') }} />
+                                <div>
+                                    <div style={{ margin: "10px 0" }}>
+                                        <label>解码链接：</label>
+                                        <Button onClick={() => { this.decryptUrlFuc() }}>解码</Button>
+                                    </div>
+                                    <TextArea id="decryptTextarea" rows={5} value={decryptUrl} placeholder="输入需要解码的链接"
+                                        onChange={e => { this.setStateValueFuc(e, 'decryptUrl') }} />
                                 </div>
                             </div>
                         )
                     }
-
                 </div>
-
-
             </div >
         )
     }
