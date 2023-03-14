@@ -1,0 +1,71 @@
+.page {
+    padding: 20px;
+}
+
+.labelWidth {
+    flex: 0 0 auto;
+    width: 140px;
+}
+
+.requiredIcon::before {
+    content: '*';
+    color: red;
+    margin-right: 5px;
+}
+
+.textareaStyle {
+    min-height: 80px;
+    background-color: #e9ecef;
+    padding: .375rem .75rem;
+    border-radius: .375rem;
+    overflow: auto;
+}
+
+.textareaStyle span {
+    display: inline-block;
+    background-color: yellow;
+}
+
+.topToast {
+    text-align: center;
+    width: 200px;
+    position: fixed;
+    top: -70px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    /* 调用动画 */
+    animation-name: toastAnimation;
+    /* 持续时间 */
+    animation-duration: 2s;
+}
+
+@keyframes toastAnimation {
+    0% {
+        top: -70px;
+        opacity: 1;
+    }
+
+    25% {
+        top: 20px;
+        opacity: 1;
+    }
+
+    75% {
+        top: 20px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 20px;
+        opacity: 0;
+    }
+}
+
+.page .nav-link.active {
+    color: #0d6efd !important
+}
+
+.page .nav-link {
+    color: #495057 !important
+}
