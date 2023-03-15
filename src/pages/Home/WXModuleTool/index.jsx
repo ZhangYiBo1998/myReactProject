@@ -264,8 +264,7 @@ export default class WXModuleTool extends Component {
 
     //初始化渲染、状态更新之后
     render() {
-        let { paramArr, paramStr, module, appid, http, tabs, url, encryptionUrl, encryptTabs, encryptionText, reEncryptionUrl, decryptUrl } = this.state;
-
+        let { paramArr, paramStr, module, appid, http, url, encryptionUrl, encryptionText, reEncryptionUrl, decryptUrl } = this.state;
 
         return (
             <div className="page">
@@ -289,44 +288,42 @@ export default class WXModuleTool extends Component {
                         {
                             key: 1,
                             label: `字符串拼接入参`,
+                            children: (
+                                <div>
+                                    <TextArea id="paramStrTextarea" rows={3} value={paramStr} placeholder="外链入参拼接的字符串，例：organId=1&organName=邵逸夫医院" onChange={e => { this.setStateValueFuc(e, 'paramStr') }} />
+                                </div>
+                            )
                         },
                         {
                             key: 2,
                             label: `选项输入`,
+                            children: (
+                                <div>
+                                    {
+                                        paramArr.map((item, index) => {
+                                            return (
+                                                <Row key={item.id} gutter="16">
+                                                    <Col span={12} className="inline">
+                                                        <label className="requiredIcon" style={{ marginRight: "8px" }}>key</label>
+                                                        <Input id={`paramArr_key_${item.id}`} defaultValue={item.key} onChange={e => item.key = e.target.value} />
+                                                    </Col>
+                                                    <Col span={12} className="inline">
+                                                        <label className="requiredIcon" style={{ marginRight: "8px" }}>value</label>
+                                                        <Input id={`paramArr_value_${item.id}`} defaultValue={item.value} onChange={e => item.value = e.target.value} />
+                                                        {index > 0 && (<Button className="col-sm-auto" onClick={(e) => { return this.reduce(e, item.id) }}>删除</Button>)}
+                                                    </Col>
+                                                </Row>
+                                            )
+                                        })
+                                    }
+                                    <br />
+                                    <Button style={{ marginRight: 15 }} onClick={this.add}>新增</Button>
+                                    <Button type="primary" style={{ marginRight: 15 }} onClick={this.save}>保存</Button>
+                                    <label>该模式编译链接需要点击保存按钮</label>
+                                </div>
+                            )
                         },
                     ]} onChange={this.changeTabsFuc} />
-                    {
-                        // 切换选项卡
-                        tabs === 1 ? (
-                            <div>
-                                <TextArea id="paramStrTextarea" rows={3} value={paramStr} placeholder="外链入参拼接的字符串，例：organId=1&organName=邵逸夫医院" onChange={e => { this.setStateValueFuc(e, 'paramStr') }} />
-                            </div>
-                        ) : (
-                            <div>
-                                {
-                                    paramArr.map((item, index) => {
-                                        return (
-                                            <Row key={item.id} gutter="16">
-                                                <Col span={12} className="inline">
-                                                    <label className="requiredIcon" style={{ marginRight: "8px" }}>key</label>
-                                                    <Input id={`paramArr_key_${item.id}`} defaultValue={item.key} onChange={e => item.key = e.target.value} />
-                                                </Col>
-                                                <Col span={12} className="inline">
-                                                    <label className="requiredIcon" style={{ marginRight: "8px" }}>value</label>
-                                                    <Input id={`paramArr_value_${item.id}`} defaultValue={item.value} onChange={e => item.value = e.target.value} />
-                                                    {index > 0 && (<Button className="col-sm-auto" onClick={(e) => { return this.reduce(e, item.id) }}>删除</Button>)}
-                                                </Col>
-                                            </Row>
-                                        )
-                                    })
-                                }
-                                <br />
-                                <Button style={{ marginRight: 15 }} onClick={this.add}>新增</Button>
-                                <Button type="primary" style={{ marginRight: 15 }} onClick={this.save}>保存</Button>
-                                <label>该模式编译链接需要点击保存按钮</label>
-                            </div>
-                        )
-                    }
                 </div>
                 <br />
                 <Button danger onClick={this.clearData}>清空数据</Button>
@@ -337,59 +334,59 @@ export default class WXModuleTool extends Component {
                         {
                             key: 1,
                             label: `编码链接`,
+                            children: (
+                                <div>
+                                    <div>
+                                        <div style={{ margin: "10px 0" }}>
+                                            <label>编码后链接：</label>
+                                            <Button onClick={() => { this.copy(encryptionUrl) }}>复制</Button>
+                                        </div>
+                                        {/* <TextArea id="encryptionUrlTextarea" disabled rows={4} value={encryptionUrl} /> */}
+                                        <div className="textareaStyle" id="encryptionUrlTextarea">{encryptionUrl}</div>
+                                    </div>
+                                    <div>
+                                        <div style={{ margin: "10px 0" }}>
+                                            <label>编码前链接：</label>
+                                            <Button onClick={() => { this.copy(url) }}>复制</Button>
+                                        </div>
+                                        <div className="textareaStyle" id="urlTextarea" ref={c => { this.urlHtmlDom = c }}></div>
+                                    </div>
+                                </div>
+                            )
                         },
                         {
                             key: 2,
                             label: `重编码链接&解码链接`,
+                            children: (
+                                <div>
+                                    <div>
+                                        <div style={{ margin: "10px 0" }}>
+                                            <label>编码链接：</label>
+                                            <Button onClick={() => { this.encryptionTextFuc() }}>编码</Button>
+                                        </div>
+                                        <TextArea id="encryptionTextarea" rows={5} value={encryptionText} placeholder="输入需要编码的链接"
+                                            onChange={e => { this.setStateValueFuc(e, 'encryptionText') }} />
+                                    </div>
+                                    <div>
+                                        <div style={{ margin: "10px 0" }}>
+                                            <label>重编码链接：</label>
+                                            <Button onClick={() => { this.reEncryptionUrlFuc() }}>重编码</Button>
+                                        </div>
+                                        <TextArea id="reEncryptionTextarea" rows={5} value={reEncryptionUrl} placeholder="输入需要重编码的链接"
+                                            onChange={e => { this.setStateValueFuc(e, 'reEncryptionUrl') }} />
+                                    </div>
+                                    <div>
+                                        <div style={{ margin: "10px 0" }}>
+                                            <label>解码链接：</label>
+                                            <Button onClick={() => { this.decryptUrlFuc() }}>解码</Button>
+                                        </div>
+                                        <TextArea id="decryptTextarea" rows={5} value={decryptUrl} placeholder="输入需要解码的链接"
+                                            onChange={e => { this.setStateValueFuc(e, 'decryptUrl') }} />
+                                    </div>
+                                </div>
+                            )
                         },
                     ]} onChange={this.changeEncryptTabsFuc} />
-                    {
-                        encryptTabs === 1 ? (
-                            <div>
-                                <div>
-                                    <div style={{ margin: "10px 0" }}>
-                                        <label>编码后链接：</label>
-                                        <Button onClick={() => { this.copy(encryptionUrl) }}>复制</Button>
-                                    </div>
-                                    <TextArea id="encryptionUrlTextarea" disabled rows={4} value={encryptionUrl} />
-                                </div>
-                                <div>
-                                    <div style={{ margin: "10px 0" }}>
-                                        <label>编码前链接：</label>
-                                        <Button onClick={() => { this.copy(url) }}>复制</Button>
-                                    </div>
-                                    <div className="textareaStyle" id="urlTextarea" ref={c => { this.urlHtmlDom = c }}></div>
-                                </div>
-                            </div>
-                        ) : (
-                            <div>
-                                <div>
-                                    <div style={{ margin: "10px 0" }}>
-                                        <label>编码链接：</label>
-                                        <Button onClick={() => { this.encryptionTextFuc() }}>编码</Button>
-                                    </div>
-                                    <TextArea id="encryptionTextarea" rows={5} value={encryptionText} placeholder="输入需要编码的链接"
-                                        onChange={e => { this.setStateValueFuc(e, 'encryptionText') }} />
-                                </div>
-                                <div>
-                                    <div style={{ margin: "10px 0" }}>
-                                        <label>重编码链接：</label>
-                                        <Button onClick={() => { this.reEncryptionUrlFuc() }}>重编码</Button>
-                                    </div>
-                                    <TextArea id="reEncryptionTextarea" rows={5} value={reEncryptionUrl} placeholder="输入需要重编码的链接"
-                                        onChange={e => { this.setStateValueFuc(e, 'reEncryptionUrl') }} />
-                                </div>
-                                <div>
-                                    <div style={{ margin: "10px 0" }}>
-                                        <label>解码链接：</label>
-                                        <Button onClick={() => { this.decryptUrlFuc() }}>解码</Button>
-                                    </div>
-                                    <TextArea id="decryptTextarea" rows={5} value={decryptUrl} placeholder="输入需要解码的链接"
-                                        onChange={e => { this.setStateValueFuc(e, 'decryptUrl') }} />
-                                </div>
-                            </div>
-                        )
-                    }
                 </div>
             </div >
         )

@@ -19,6 +19,7 @@
     padding: .375rem .75rem;
     border-radius: .375rem;
     overflow: auto;
+    word-wrap: break-word;
 }
 
 .textareaStyle span {
