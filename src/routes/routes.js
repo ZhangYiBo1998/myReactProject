@@ -1,3 +1,4 @@
+import { EditOutlined, HomeOutlined, SmileOutlined } from '@ant-design/icons';
 import { lazy } from "react";
 import HomePage from "../pages/Home";
 import Initialization from "../pages/Home/Initialization";
@@ -13,7 +14,7 @@ import LoginPage from "../pages/Login";
 export const navRouterArr = [
   {
     name: "首页",
-    icon: "",
+    icon: <HomeOutlined />,
     path: "/home/index",
     component: Initialization,
   },
@@ -39,19 +40,19 @@ export const navRouterArr = [
   },
   {
     name: "SVG练习",
-    icon: "",
+    icon: <EditOutlined />,
     path: "/home/SVGStudy",
     component: lazy(() => import("../pages/Home/SVGStudy")),
   },
   {
     name: "微信链接工具",
-    icon: "",
+    icon: <EditOutlined />,
     path: "/home/WXModuleTool",
     component: lazy(() => import("../pages/Home/WXModuleTool")),
   },
   {
     name: "关于我",
-    icon: "",
+    icon: <SmileOutlined />,
     path: "/home/about",
     component: lazy(() => import("../pages/Home/About")), //路由懒加载
   },

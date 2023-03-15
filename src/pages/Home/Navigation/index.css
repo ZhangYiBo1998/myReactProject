@@ -1,23 +1,19 @@
 .Navigation {
-    margin: 0;
-    padding: 0 10px;
-    width: 140px;
-    /* min-height: 95vh; */
-    background-color: #282c34;
-    color: #fff;
-    border-radius: 10px 0 0 10px;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    overflow: auto;
+    flex-shrink: 0;
+}
+
+.Navigation::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
 }
 
 .Navigation .head {
     padding-bottom: 10px;
     border-bottom: #fff solid 1px;
 }
-
+/* 
 .Navigation .itemBox {
     border-bottom: #fff solid 1px;
     display: -webkit-box;
@@ -58,7 +54,6 @@
 }
 
 .Navigation .itemBox .active {
-    /* background-color: #70757e; */
     color: #61dafb;
 }
 
@@ -68,4 +63,4 @@
     right: 5px;
     transform: translate(0, -50%);
 
-}
+} */
