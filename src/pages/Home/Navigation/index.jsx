@@ -1,7 +1,7 @@
 import { MailOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import React, { Component } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import ReactLogo from '../../../components/ReactLogo';
 import { navRouterArr } from '../../../routes/routes';
@@ -66,16 +66,21 @@ class NavigationComponent extends Component {
 
     state = {
         navRouterArr: [],
+        selectKey: "",
     }
 
     //组件挂完毕
     componentDidMount() {
         console.log('componentDidMount');
         _this = this
+        const { location } = this.props;
 
         const items = _this.setNavItems(navRouterArr)
-        this.setState({ navRouterArr: items })
-        console.log(items)
+        this.setState({ navRouterArr: items, selectKey: location.pathname })
+
+        // this.props.history.listen(location => {
+        //     _this.setState({ selectKey: location.pathname })
+        // })
     }
 
     setNavItems = (arr) => {
@@ -95,14 +100,16 @@ class NavigationComponent extends Component {
 
     clickMenu = (e) => {
         console.log('click ', e);
-        const {history} = this.props;
+        const { history } = this.props;
         // 跳转路由
-        history.push(e.key);
+        // antd组件暂不支持前进后退后自动选中菜单子项操作
+        history.replace(e.key);
     };
 
     render() {
-        const { navRouterArr } = this.state;
-        console.log('navRouterArr',navRouterArr)
+        let { navRouterArr, selectKey } = this.state;
+
+        (!selectKey) && (selectKey = this.props.location.pathname);
 
         return (
             <div className='Navigation'>
@@ -114,7 +121,7 @@ class NavigationComponent extends Component {
                     style={{
                         width: 256,
                     }}
-                    defaultSelectedKeys={['/home/index']}
+                    defaultSelectedKeys={[selectKey]}
                     defaultOpenKeys={['/home/game']}
                     mode="inline"
                     items={navRouterArr}
@@ -132,11 +139,12 @@ class NavigationComponent extends Component {
 function NavigationHook(Navigation) {
 
     return function NavigateCompont() {
-        const history = useHistory()
+        const history = useHistory();
+        const location = useLocation();
 
         // 给传入的组件新增一个to方法，传给原始组件的props，在原始组件中通过this.props.to(参数)使用
         // 通过父传子，将useNavigate函数传给子组件，实现在类组件中调用hook函数
-        return <Navigation history={history}></Navigation>
+        return <Navigation history={history} location={location}></Navigation>
     }
 
 
