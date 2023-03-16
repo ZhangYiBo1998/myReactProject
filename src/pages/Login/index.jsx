@@ -32,9 +32,7 @@ export default function Login(props) {
                         values.remember && saveCookie([
                             {
                                 objKey: "userInfo",
-                                objValue: {
-                                    userName: values.userName
-                                }
+                                objValue: data
                             },
                         ]);
 
