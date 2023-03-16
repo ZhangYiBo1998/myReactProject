@@ -11,7 +11,7 @@ const images = require.context('../../img', true);
 
 function UserHead(props) {
     const [state] = useState({
-        userInfo:getCookie('userInfo'),
+        userInfo: getCookie('userInfo'),
     })
 
     function handleMenuClick(key) {
@@ -37,26 +37,42 @@ function UserHead(props) {
 
     const items = [
         {
-          label: (<span onClick={e=>{handleMenuClick('userCenter')}}>个人中心</span>),
-          key: 'userCenter',
-          icon:<UserOutlined />,
+            label: (
+                <Space onClick={e => { handleMenuClick('userCenter') }}>
+                    <UserOutlined />
+                    <span>个人中心</span>
+                </Space>
+            ),
+            key: 'userCenter',
         },
         {
-          label: <span onClick={e=>{handleMenuClick('settingCenter')}}>设置</span>,
-          key: 'settingCenter',
-          icon:<SettingOutlined />,
+            label: (
+                <Space onClick={e => { handleMenuClick('settingCenter') }}>
+                    <SettingOutlined />
+                    <span>设置</span>
+                </Space>
+            ),
+            key: 'settingCenter',
         },
         {
-          label: <span onClick={e=>{handleMenuClick('Github')}}>Github</span>,
-          key: 'Github',
-          icon:<SettingOutlined />,
+            label: (
+                <Space onClick={e => { handleMenuClick('Github') }}>
+                    <SettingOutlined />
+                    <span>Github</span>
+                </Space>
+            ),
+            key: 'Github',
         },
         {
-          label: <span onClick={e=>{handleMenuClick('signOut')}}>退出帐号</span>,
-          key: 'signOut',
-          icon:<LogoutOutlined />,
+            label: (
+                <Space onClick={e => { handleMenuClick('signOut') }}>
+                    <LogoutOutlined />
+                    <span>退出帐号</span>
+                </Space>
+            ),
+            key: 'signOut',
         },
-      ];
+    ];
 
     return (
         <div className='UserHead'>
@@ -68,21 +84,19 @@ function UserHead(props) {
                     <div className='imgBox'>
                         {/* 设置头像 因为是本地图片，只能使用此方法动态加载，网络图片直接可以使用链接*/}
                         {
-                            state.userInfo.img?(
-                                <img src={images(`${state.userInfo.img}`).default} style={{width:"50px",height:"50px",borderRadius:"50%"}} alt="头像" />
-                            ):(
+                            state.userInfo.img ? (
+                                <img src={images(`${state.userInfo.img}`).default} style={{ width: "50px", height: "50px", borderRadius: "50%" }} alt="头像" />
+                            ) : (
                                 <Avatar size={50} icon={<UserOutlined />} />
                             )
                         }
                     </div>
                     <div className='userName'>
-                        <Dropdown menu={{items}} trigger={['click']}>
-                            <span>
-                                <Space>
-                                    {state.userInfo.userName}
-                                    <MoreOutlined />
-                                </Space>
-                            </span>
+                        <Dropdown menu={{ items }} trigger={['click']}>
+                            <Space>
+                                {state.userInfo.userName}
+                                <MoreOutlined />
+                            </Space>
                         </Dropdown>
                     </div>
                 </div>
